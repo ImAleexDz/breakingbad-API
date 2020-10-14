@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import Frase from './components/Frase'
 
@@ -18,6 +18,12 @@ const Boton = styled.button`
   padding: 1rem 3 rem;
   font-size: 2rem;
   border: 2px solid black;
+  transition: background-size .8s ease;
+
+  :hover {
+    cursor: pointer;
+    background-size: 400px;
+  }
 `;
 
 function App() {
@@ -30,8 +36,13 @@ function App() {
     const api = await fetch('https://breaking-bad-quotes.herokuapp.com/v1/quotes');
     const frase = await api.json();
     setFrase(frase[0]);
+  };
 
-  }
+  //Cargar frase
+  useEffect( () => {
+    consultaAPI()
+  }, []);
+
   return (
     <Contenedor>
       <Frase 
